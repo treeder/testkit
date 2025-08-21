@@ -10,7 +10,7 @@ out of your way.
 ## Getting started
 
 ```sh
-npm install treeder/testkit
+npm install --save-dev treeder/testkit
 ```
 
 Then write simple tests like this:
