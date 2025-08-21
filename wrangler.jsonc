@@ -1,0 +1,17 @@
+{
+  "name": "testkit",
+  "compatibility_date": "2025-08-11",
+  "main": "./dist/index.js",
+  "assets": {
+    "directory": "./public/",
+    "binding": "ASSETS",
+  },
+  "env": {
+    "dev": {
+      "name": "testkit-dev",
+      "vars": {
+        "ENV": "dev",
+      },
+    },
+  },
+}

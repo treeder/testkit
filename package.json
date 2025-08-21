@@ -1,0 +1,22 @@
+{
+  "name": "testkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm install && npx concurrently \"npx nodemon --watch functions --watch public --exec 'npx wrangler pages functions build --outdir=./dist/'\" \"npx wrangler dev --env dev --live-reload\"",
+    "build": "npx wrangler pages functions build --outdir=./dist/",
+    "start-server": "npm run build && npx wrangler dev --env dev",
+    "test": "node test/test.js",
+    "ci": "start-server-and-test start-server 8787 test"
+  },
+  "keywords": [],
+  "author": "treeder",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "api": "github:treeder/api",
+    "dotenv": "^17.2.1",
+    "start-server-and-test": "^2.0.13"
+  }
+}
