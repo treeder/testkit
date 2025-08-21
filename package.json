@@ -2,7 +2,7 @@
   "name": "testkit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "testkit.js",
   "scripts": {
     "start": "npm install && npx concurrently \"npx nodemon --watch functions --watch public --exec 'npx wrangler pages functions build --outdir=./dist/'\" \"npx wrangler dev --env dev --live-reload\"",
     "build": "npx wrangler pages functions build --outdir=./dist/",
