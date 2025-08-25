@@ -12,8 +12,14 @@ export class TestKit {
   }
 
   async run() {
+    this.c.data ||= {}
     for (const test of this.tests) {
-      await test(this.c)
+      let r = await test(this.c)
+      // merge the results into a data field on the context so next tests can use the results
+      if(isObject(r)){
+              // asdfasdf
+        this.c.data = {...this.c.data, ...r}
+      }
     }
   }
 
@@ -24,4 +30,8 @@ export function assert(assertion, ...args) {
   if (!assertion) {
     throw new Error(args.join(' '))
   }
+}
+
+function isObject(obj) {
+  return obj !== null && typeof obj === 'object' && !Array.isArray(obj);
 }
