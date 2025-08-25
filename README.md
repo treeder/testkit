@@ -26,6 +26,7 @@ async function test1(c) {
 Then add tests to TestKit and run:
 
 ```js
+import { test1 } from 'test1.js'
 // create context:
 let c = {
   env: process.env,
@@ -40,7 +41,7 @@ await testKit.run()
 
 See full example with auth headers and what not that you can copy and paste at [test/test.js](test/test.js)
 
-## Running tests
+### Running tests
 
 In your package.json, make a "start-server" in scripts that will start the API server.
 
@@ -54,15 +55,27 @@ Then also add a "test" and "ci" line like below.
 },
 ```
 
-Then just run:
+Then run:
 
 ```sh
 npm run ci
 ```
 
-And add that line `npm run ci` to your CI and what not. 
+And add that line `npm run ci` to your CI and if it passes, you're good. If it fails, don't merge!
 
-## To run examples
+### Passing data through the tests
+
+Tests run in the order you define them in the array you pass to `new TestKit()`. 
+
+If your test returns an object, that object will be merged into the context under a `data` field tbat you can access in subsequent tests like this:
+
+```js
+let r = await c.api.fetch(`/users/${c.data.userId}`)
+```
+
+## To run exmaples in this repository. 
+
+Clone the repo and run:
 
 ```sh
 npm install
