@@ -73,7 +73,7 @@ If your test returns an object, that object will be merged into the context unde
 let r = await c.api.fetch(`/users/${c.data.userId}`)
 ```
 
-## To run exmaples in this repository. 
+## To run examples in this repository. 
 
 Clone the repo and run:
 
