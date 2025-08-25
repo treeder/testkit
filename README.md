@@ -4,7 +4,7 @@ The simplest API testing kit.
 
 ## Motivation
 
-Most testing frameworks are using complicated, old, not ESM, etc. I just wanted something super simple that is easy to get started, lets you do anything you want without jumping through hoops, and gets
+Most testing frameworks are complicated, old, not ESM, etc. I just wanted something super simple that is easy to get started, lets you do anything you want without jumping through hoops, and gets
 out of your way. 
 
 ## Getting started
