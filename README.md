@@ -39,6 +39,19 @@ let testKit = new TestKit(c,
 await testKit.run()
 ```
 
+Return an object with fields that you might need in subsequent tests. Each test will merge data with the next test and be accessible at `c.data`.
+
+```js
+// in a test:
+return { myObject }
+
+// then you can access that in any subsequent test:
+
+async function text2(c){
+  console.log(c.data.myObject)
+}
+```
+
 See full example with auth headers and what not that you can copy and paste at [test/test.js](test/test.js)
 
 ### Running tests
