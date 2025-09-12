@@ -16,7 +16,7 @@ npm install --save-dev treeder/testkit
 Then write simple tests like this:
 
 ```js
-async function test1(c) {
+export async function test1(c) {
   let r = await c.api.fetch(`/`)
   console.log('r:', r)
   assert(r.message == 'hello world!', 'not hello world!')
