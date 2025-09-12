@@ -26,7 +26,9 @@ export async function test1(c) {
 Then add tests to TestKit and run:
 
 ```js
+import { TestKit } from 'testkit'
 import { test1 } from 'test1.js'
+
 // create context:
 let c = {
   env: process.env,
