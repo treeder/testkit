@@ -8,17 +8,18 @@ export class TestKit {
    */
   constructor(c, tests) {
     this.c = c
+    this.c.data ||= {}
     this.tests = tests
   }
 
   async run() {
-    this.c.data ||= {}
+    let c = {...this.c}
     for (const test of this.tests) {
-      let r = await test(this.c)
+      let r = await test(c)
       // merge the results into a data field on the context so next tests can use the results
       if(isObject(r)){
               // asdfasdf
-        this.c.data = {...this.c.data, ...r}
+        c.data = {...c.data, ...r}
       }
     }
   }
