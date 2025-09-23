@@ -4,12 +4,13 @@
   "description": "",
   "main": "testkit.js",
   "scripts": {
-    "start": "npm install && npx concurrently \"npx nodemon --watch functions --watch public --exec 'npx wrangler pages functions build --outdir=./dist/'\" \"npx wrangler dev --env dev --live-reload\"",
+    "start": "npm install && npx wrangler dev --env dev --live-reload",
     "build": "npx wrangler pages functions build --outdir=./dist/",
     "start-server": "npm run build && npx wrangler dev --env dev",
     "test": "node test/test.js",
-    "ci": "start-server-and-test start-server 8787 test"
+    "testkit": "node ./bin/testkit.js asdf --port=8787"
   },
+  "bin": "./bin/testkit.js",
   "keywords": [],
   "author": "treeder",
   "license": "MIT",
@@ -18,5 +19,16 @@
     "api": "github:treeder/api",
     "dotenv": "^17.2.1",
     "start-server-and-test": "^2.0.13"
+  },
+  "devDependencies": {
+    "flaregun": "github:treeder/flaregun",
+    "prettier": "^3.6.2"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 120
   }
 }

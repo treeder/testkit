@@ -6,6 +6,11 @@
     "directory": "./public/",
     "binding": "ASSETS",
   },
+  "build": {
+    "command": "npx treeder/flaregun build",
+    "cwd": ".",
+    "watch_dir": ["functions", "public"],
+  },
   "env": {
     "dev": {
       "name": "testkit-dev",
