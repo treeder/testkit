@@ -1,8 +1,6 @@
-
 export class TestKit {
-
   /**
-   * 
+   *
    * @param {*} c context
    * @param {*} tests array of test functions
    */
@@ -13,17 +11,17 @@ export class TestKit {
   }
 
   async run() {
-    let c = {...this.c}
+    let c = { ...this.c }
     for (const test of this.tests) {
       let r = await test(c)
       // merge the results into a data field on the context so next tests can use the results
-      if(isObject(r)){
-              // asdfasdf
-        c.data = {...c.data, ...r}
+      if (isObject(r)) {
+        // asdfasdf
+        c.data = { ...c.data, ...r }
       }
     }
+    console.log('✅ tests passed')
   }
-
 }
 // same as assert, but throws an error if assertion is false
 export function assert(assertion, ...args) {
@@ -34,5 +32,5 @@ export function assert(assertion, ...args) {
 }
 
 function isObject(obj) {
-  return obj !== null && typeof obj === 'object' && !Array.isArray(obj);
+  return obj !== null && typeof obj === 'object' && !Array.isArray(obj)
 }
