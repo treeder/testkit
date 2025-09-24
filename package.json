@@ -8,7 +8,7 @@
     "build": "npx wrangler pages functions build --outdir=./dist/",
     "start-server": "npm run build && npx wrangler dev --env dev",
     "test": "node test/test.js",
-    "testkit": "node ./bin/testkit.js asdf --port=8787"
+    "testkit": "node ./bin/testkit.js --port=8787"
   },
   "bin": "./bin/testkit.js",
   "keywords": [],
@@ -17,8 +17,7 @@
   "type": "module",
   "dependencies": {
     "api": "github:treeder/api",
-    "dotenv": "^17.2.1",
-    "start-server-and-test": "^2.0.13"
+    "dotenv": "^17.2.1"
   },
   "devDependencies": {
     "flaregun": "github:treeder/flaregun",
