@@ -72,10 +72,10 @@ Then add a "testkit" one:
 Then run:
 
 ```sh
-npm run ci
+npm run testkit
 ```
 
-And add that line `npm run ci` to your CI and if it passes, you're good. If it fails, don't merge!
+Add `npm run testkit` to your CI and if it passes, you're good. If it fails, don't merge!
 
 ### Passing data through the tests
 
