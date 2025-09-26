@@ -51,9 +51,9 @@ Then add a "testkit" one:
 
 ```json
 "scripts": {
-  "start": "npm run build && npx wrangler dev --env dev",
+  "start": "npm run build && npx -y wrangler dev --env dev",
   "test": "node test/test.js",
-  "testkit": "npx treeder/testkit --port=8787"
+  "testkit": "npx -y treeder/testkit --port=8787"
 },
 ```
 
