@@ -38,7 +38,7 @@ function spawnProcess(command, args) {
  * @param {number} timeout The maximum time to wait in milliseconds.
  * @returns {Promise<void>} A promise that resolves when the URL is accessible.
  */
-async function waitForUrl(url, timeout = 30000) {
+async function waitForUrl(url, timeout = 60000) {
   const startTime = Date.now()
   while (Date.now() - startTime < timeout) {
     try {
