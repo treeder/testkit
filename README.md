@@ -39,18 +39,6 @@ let testKit = new TestKit(c, [test1])
 await testKit.run()
 ```
 
-Return an object with fields that you might need in subsequent tests. Each test will merge data with the next test and be accessible at `c.data`.
-
-```js
-// in a prior test:
-return { myObject }
-
-// then you can access that in any subsequent test:
-async function test2(c) {
-  console.log(c.data.myObject)
-}
-```
-
 See full example with auth headers and what not that you can copy and paste at [test/test.js](test/test.js)
 
 ### Running tests
@@ -81,10 +69,23 @@ Add `npm run testkit` to your CI and if it passes, you're good. If it fails, don
 
 Tests run in the order you define them in the array you pass to `new TestKit()`.
 
-If your test returns an object, that object will be merged into the context under a `data` field tbat you can access in subsequent tests like this:
+If your test returns an object, that object will be merged into the context under a `data` field that you can access in subsequent tests.
+
+Test 1:
 
 ```js
-let r = await c.api.fetch(`/users/${c.data.userId}`)
+export async function test1(c) {
+  let myObject = {name: 'john'}
+  return { myObject }
+}
+```
+
+That return data will be available in any subsequest test.  
+
+```js
+export async function test2(c) {
+  console.log(c.data.myObject)
+}
 ```
 
 ## To run examples in this repository.
@@ -92,6 +93,5 @@ let r = await c.api.fetch(`/users/${c.data.userId}`)
 Clone the repo and run:
 
 ```sh
-npm install
-npm run ci
+npm run testkit
 ```
