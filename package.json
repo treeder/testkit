@@ -7,7 +7,7 @@
     "start": "npm install && npx -y wrangler dev --live-reload",
     "build": "npx -y treeder/flaregun build",
     "run": "npx -y wrangler dev",
-    "test:run": "node tests/tests.js",
+    "test:run": "node test/test.js",
     "test": "node ./bin/testkit.js --port=8787"
   },
   "bin": "./bin/testkit.js",

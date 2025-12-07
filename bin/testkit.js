@@ -104,7 +104,9 @@ async function run2(args, options) {
   try {
     // 1. Start the first process (the server)
     console.log('🚀 Starting server process...')
-    serverProcess = spawn(serverCommand, serverArgs)
+    serverProcess = spawn(serverCommand, serverArgs, {
+      detached: true,
+    })
     serverProcess.stdout.pipe(process.stdout)
     serverProcess.stderr.pipe(process.stderr)
 
@@ -126,7 +128,7 @@ async function run2(args, options) {
   } finally {
     // 4. Once the second process is done (or if an error occurred), shut down the first process
     if (serverProcess) {
-      await gracefulShutdown(serverProcess)
+      await gracefulShutdown(serverProcess, 5000, 'SIGTERM', true)
     }
   }
 }
@@ -140,9 +142,10 @@ async function run2(args, options) {
  * @param {import('child_process').ChildProcess} childProcess - The process to kill
  * @param {number} timeoutMs - Time to wait before forcing kill (default 5000ms)
  * @param {string} signal - The initial signal to send (default 'SIGTERM')
+ * @param {boolean} detached - Whether the process was spawned as detached (group leader)
  * @returns {Promise<boolean>} - Resolves true if exited gracefully, false if forced
  */
-async function gracefulShutdown(childProcess, timeoutMs = 5000, signal = 'SIGTERM') {
+async function gracefulShutdown(childProcess, timeoutMs = 5000, signal = 'SIGTERM', detached = false) {
   // 1. If process is already dead, return immediately
   if (childProcess.exitCode !== null || childProcess.signalCode !== null) {
     return true
@@ -161,7 +164,16 @@ async function gracefulShutdown(childProcess, timeoutMs = 5000, signal = 'SIGTER
 
   // 4. Send the initial signal
   console.log(`Sending ${signal} to process ${childProcess.pid}...`)
-  childProcess.kill(signal)
+  if (detached) {
+    try {
+      process.kill(-childProcess.pid, signal)
+    } catch (e) {
+      // Fallback for Windows or if process group killing fails
+      childProcess.kill(signal)
+    }
+  } else {
+    childProcess.kill(signal)
+  }
 
   // 5. Race: Did it exit, or did we time out?
   const exitedGracefully = await Promise.race([exitPromise, timeoutPromise])
@@ -171,7 +183,16 @@ async function gracefulShutdown(childProcess, timeoutMs = 5000, signal = 'SIGTER
     return true
   } else {
     console.warn(`Process ${childProcess.pid} timed out. Sending SIGKILL...`)
-    childProcess.kill('SIGKILL')
+    if (detached) {
+      try {
+        process.kill(-childProcess.pid, 'SIGKILL')
+      } catch (e) {
+         // Fallback for Windows or if process group killing fails
+        childProcess.kill('SIGKILL')
+      }
+    } else {
+      childProcess.kill('SIGKILL')
+    }
     // Optionally wait for the final exit event just to be clean
     await exitPromise
     return false
