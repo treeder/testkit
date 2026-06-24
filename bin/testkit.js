@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import fs from 'fs'
 import { exec } from 'child_process'
 import { waitForServer } from './wait.js'
 import { spawn } from 'child_process'
@@ -99,6 +100,16 @@ async function run2(args, options) {
 
   let serverCommand = `npm`
   let serverArgs = ['run', 'run']
+
+  try {
+    const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
+    if (pkg.scripts && pkg.scripts['run:test']) {
+      serverArgs = ['run', 'run:test']
+    }
+  } catch (err) {
+    // ignore
+  }
+
   let serverURL = `http://localhost:${options.port}`
   let secondCommand = `npm`
   let secondArgs = ['run', 'test:run']
